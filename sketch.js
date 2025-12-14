@@ -5,7 +5,7 @@ function setup() {
 function draw() {
     background(240);
     //huvudsignal(300,100,3)
-    //försignal(650,300,3)
+    försignal(650,300,3)
 }
 
 function huvudsignal(x, y, size=1) {
@@ -50,12 +50,28 @@ function försignal(x, y, size=1) {
     circle(x, y+h/2.5, w/2)
 
     noFill()
-    strokeWeight(2)
+    strokeWeight(3)
     stroke(255,255,255)
     
-    //To create the white part of the försignal, mabye we just create a loop of like 10
-    //arcs that gets progressivly smaller, in the arc width, and then maybe add a line
-    //to create a flat part of the bent rectangle
-    arc(x+(w/2), y, w, h, -HALF_PI, HALF_PI);
-    arc(x-(w/2), y, w/2, h, HALF_PI, -HALF_PI);
+    let dist = 5
+    let start_r, end_r, start_l, end_l = 0
+    let flat = 0.018
+
+    start_r = 5*PI/3
+    end_r = PI/3
+
+    start_l = 2*PI/3
+    end_l = 4*PI/3
+    for (let i = 0; i < 25; i++) {
+        arc(x+(w/2)-dist, y, w, h+10, start_r, end_r)
+        arc(x-(w/2)+dist, y, w, h+10, start_l, end_l);
+
+        start_r += flat
+        end_r -= flat
+
+        start_l += flat
+        end_l -= flat
+
+        dist += 2
+    }   
 }
